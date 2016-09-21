@@ -1,0 +1,24 @@
+
+conver<-c(0.012,0.020,0.015,0.014,0.018,0.013,0.010,0.025,0.045,0.011)
+pv<-c(23.19,10.89,15.09,12.11,9.60,20.29,40.56,28.66,20.43,13.84)
+price<-c(3509,59,2501,509,411,3011,476,81,379,610)
+
+library(RColorBrewer)
+col<-brewer.pal(11, "Spectral")[2:11]
+
+cex.max<-12#最终显示的最大cex
+cex.min<-3#最终显示的最小cex
+a<-(cex.max-cex.min)/(max(price)-min(price))
+b<-cex.min-a*min(price)
+cex2<-a*price+b #设置散点大小
+
+plot(pv,conver,col=col,cex=cex2,pch=16,ylim=c(0,0.06),xlab="页面浏览量（万）",ylab
+="转化率",main=list("各类目转化率 - 页面浏览量 - 客单价", cex=2),yaxt="n")
+id<-c("手机数码","食品饮料","电脑办公","家居用品","母婴玩具","家用电器","服饰鞋帽","日用百货","虚拟商品","箱包礼品")
+legend("topleft",legend=id,pch=16,col=col,bty="n",cex=0.8,ncol=5)
+axis(2,labels=paste(seq(0,5,1),"%",sep=""),at=seq(0,0.05,0.01))
+text(x=pv,y=conver,labels=price,cex=0.8)
+text(x=35,y=0.055,labels="Z- 客单价",cex=1.3)
+
+
+

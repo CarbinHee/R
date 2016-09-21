@@ -1,0 +1,18 @@
+
+x.text<-c("1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月")
+sales.1<-c(49.9,71.5,106.4,129.2,144.0,176.0,135.6,148.5,216.4,194.1,95.6,54.4)
+sales.2<-c(83.6,78.8,98.5,93.4,106.0,84.5,105.0,104.3,91.2,83.5,106.6,92.3)
+sales.3<-c(48.9,38.8,39.3,42.4,47.0,48.3,62.0,59.6,52.4,65.2,59.3,53.0)
+sales.4<-c(42.4,33.2,34.5,39.7,52.6,70.5,57.4,62.0,47.6,39.1,46.8,51.1)
+id=c("帆布鞋","T恤","皮包","冲锋衣")
+
+col=c("black","red","orange","purple")
+plot(sales.1,type="b",xaxt="n",ylim=c(0,300),col=col[1],main=" 月 销 量 趋 势 图 ",
+xlab=" 月份",ylab=" 销量（万元）")
+axis(1,at=1:12,labels=x.text,tick=FALSE)
+legend("topleft",legend=id,horiz=T,pch=15,col=col,cex=0.8,bty="n")
+grid(nx=NA, ny=8,lwd=1,lty=2,col="blue")
+
+lines(sales.2,type="b",col=col[2])
+lines(sales.3,type="b",col=col[3])
+lines(sales.4,type="b",col=col[4])

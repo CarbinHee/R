@@ -1,0 +1,27 @@
+#pch(point chart点样式）
+
+plot(1,col="white",xlim=c(1,9),ylim=c(1,7))
+for (i in c(0:25)) {
+	x<-(i%/%5)*1 + 1
+	y<-6-(i%%5)
+	if(length(which(c(21:25)==i)>=1)){#21--25的点格式可以设置背景颜色。
+		points(x,y,pch=i,bg="red",cex=2)
+	}else{
+		points(x,y,pch=i,cex=2)
+	}
+	text(x+0.2,y+0.2,labels=paste("pch=",i))
+}
+points(6,5,pch="*",cex=2);text(6.2,5.2,labels=paste("pch=\"*\""))
+points(6,4,pch=".",cex=2);text(6.2,4.2,labels=paste("pch=\".\""))
+
+points(6,2,pch="o",cex=2);text(6.2,2.2,labels=paste("pch=\"o\""))
+points(7,6,pch="0",cex=2);text(7.2,6.2,labels=paste("pch=\"0\""))
+points(7,5,pch="+",cex=2);text(7.2,5.2,labels=paste("pch=\"+\""))
+points(7,4,pch="-",cex=2);text(7.2,4.2,labels=paste("pch=\"-\""))
+points(7,3,pch="|",cex=2);text(7.2,3.2,labels=paste("pch=\"|\""))
+
+
+
+
+
+

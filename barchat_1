@@ -12,3 +12,9 @@ axis(2);
 text.x<-c("周一","周二","周三","周四","周五","周六","周日");
 axis(1, c(2,5,8,11,14,17,20), labels=text.x, tick = FALSE, cex.axis=0.75);
 title(main = list("以矩阵形式输入多组数据",cex=1.5,col="red",font=2),ylab="网站日页面浏览量pv")
+
+barplot(t(as.matrix(data)),beside=TRUE,col=col,axes=F,horiz = T);#设置绘制条形图
+axis(1);
+text.x<-c("周一","周二","周三","周四","周五","周六","周日");
+axis(2, c(2,5,8,11,14,17,20), labels=text.x, tick = FALSE, cex.axis=0.65);
+title(main = list("horiz=TRUE时绘制条形图",cex=1.5,col="red",font=2),ylab="网站日页面浏览量pv")

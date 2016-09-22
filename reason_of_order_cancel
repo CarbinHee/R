@@ -1,0 +1,29 @@
+id<-c("订购错误","支付失败","更换其他商品","订单重复","忘选优惠品","等待太久","测试订单","有缺货商品","已在别处购买","价格太贵","其他");
+month.3<-c(25746,8595,12832,10910,7043,2978,6934,4770,1137,1164,6926);
+month.4<-c(46496,20150,19682,14177,20703,8434,9560,5113,1804,1468,11156);
+month.5<-c(53356,26547,23271,16909,14789,12733,11545,7483,2506,1743,11869);
+data<-matrix(c(month.3,month.4,month.5),ncol = 3);
+
+library(RColorBrewer);
+col<-brewer.pal(11,"Spectral")[1:11];
+
+barplot(data,col = col,xaxt="n",beside = TRUE,ylim = c(0,60000));
+title(main=list("订单取消原因",cex=2),sub=" 月份：3-4 品类：帆布鞋",ylab="订单月取消数目");
+legend("topleft",legend = id,pch=15,col=col,ncol=2,cex = 0.8);
+axis(1,labels = c("3月份","4月份","5月份"),at=c(6,18,30),tick=FALSE);
+
+per100<-function(x){#百分比转化函数
+  x<-x/sum(x);
+  result<-paste(round(x*10000)/100,"%",sep="")
+  result
+}
+
+text(labels=c(per100(month.3),per100(month.4),per100(month.5)),cex=0.7,
+     x=c(seq(from=1.5,by=1,length.out = 11),seq(from=13.5,by=1,length.out = 11),seq(from=25.5,by=1,length.out = 11)),
+     y=c(month.3,month.4,month.5)+1000)
+
+
+
+
+
+

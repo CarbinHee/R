@@ -1,0 +1,14 @@
+par(mfrow=c(2,1));
+data<-data.frame(pre=c(113,134,123,145,137,196,187),now=c(129,122,134,149,146,215,208));
+col=c("azure4","brown4");
+barplot(data$now,beside=TRUE,col=col[2],axes=F);
+axis(2);
+text.x<-c("周一","周二","周三","周四","周五","周六","周日");
+axis(1, seq(from=0.7,by=1.2,length.out = 7), labels=text.x, tick = FALSE, cex.axis=0.75);
+title(main = list("以向量形式输入一组数据",cex=1.5,col="red",font=2),ylab="网站日页面浏览量pv");
+
+barplot(t(as.matrix(data)),beside=TRUE,col=col[2],axes=F);
+axis(2);
+text.x<-c("周一","周二","周三","周四","周五","周六","周日");
+axis(1, c(2,5,8,11,14,17,20), labels=text.x, tick = FALSE, cex.axis=0.75);
+title(main = list("以矩阵形式输入多组数据",cex=1.5,col="red",font=2),ylab="网站日页面浏览量pv")

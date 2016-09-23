@@ -1,0 +1,8 @@
+data<-data.frame(id=c("安全性得不到保障","产品质量、售后服务","付款不便","送货耗时、渠道不畅","价格不够诱人",
+                      "网上提供消息不可靠","其他"),num=c(0.053,0.46,0.087,0.213,0.078,0.042,0.067));
+
+library(RColorBrewer)
+col<-brewer.pal(11,"Spectral")[3:11]
+pie(data$num,col=col,xaxt="n",labels = paste(data$id,":",round(data$num*10000)/100,"%",sep=""))
+title(main = list("网站退货率高的原因",cex=2),sub=" 月份 :3-4  品类:帆布鞋")
+

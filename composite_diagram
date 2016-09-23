@@ -6,7 +6,7 @@ split<-6;
 max.bar2<-0.4 #设置分割变量和副柱状图高度变量
 
 #转化主副柱状图数据
-bar1.data<-matrix(rev(c(rep(NA,split=1),data$num[1:split],sum(data$num[-(1:split)]))),ncol=2,nrow=split+1);
+bar1.data<-matrix(rev(c(rep(NA,split+1),data$num[1:split],sum(data$num[-(1:split)]))),ncol=2,nrow=split+1);
 bar2.data<-matrix(c(rep(NA,split+1),rev(data$num[-(1:split)]),rep(NA,nrow(data)-split+1)),ncol=2,nrow=split+1);
 
 
@@ -38,5 +38,4 @@ text(x=2,y=y2+0.02,labels[-(1:split)],cex=0.8);
 #绘制图例和图标
 legend("topright",legend = data$id,pch=15,col = c(rev(col[1:split]),rev(col[-(1:split)])),ncol = 1,bty = "n");
 title(main = list("网站退货率高的原因",cex=2),sub=" 月份 :3-4  品类:帆布鞋")
-
 

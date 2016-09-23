@@ -1,0 +1,42 @@
+data<-data.frame(id=c("安全性得不到保障","产品质量、售后服务","付款不便","送货耗时、渠道不畅","价格不够诱人",
+                      "网上提供消息不可靠","物流服务人员态度不好","尺码不合适","发现更好的商品"),
+                 num=c(0.053,0.46,0.087,0.213,0.078,0.042,0.031,0.026,0.010));
+
+split<-6;
+max.bar2<-0.4 #设置分割变量和副柱状图高度变量
+
+#转化主副柱状图数据
+bar1.data<-matrix(rev(c(rep(NA,split=1),data$num[1:split],sum(data$num[-(1:split)]))),ncol=2,nrow=split+1);
+bar2.data<-matrix(c(rep(NA,split+1),rev(data$num[-(1:split)]),rep(NA,nrow(data)-split+1)),ncol=2,nrow=split+1);
+
+
+library(RColorBrewer);
+col<-brewer.pal(11,"Spectral")[3:11];
+
+#绘制复合柱状图主体
+#绘制主柱状图
+barplot(bar1.data,col=c("azure3",col[1:split]),axes = FALSE,ylim = c(0,1),xlim = c(0,4.5),border = "azure3");
+#绘制副柱状图
+barplot(bar2.data*(max.bar2/sum(data$num[-(1:split)])),col=col[-(1:split)],axes = FALSE,add = TRUE,border = "azure3");
+#绘制连接主副柱状图关系的多边形
+polygon(x=c(1.2,1.2,1.4,1.4),y=c(0,sum(data$num[-(1:split)]),max.bar2,0),col="azure3",border="azure3");
+
+
+#在图形中绘制各成分的百分比数据
+labels=paste(round(data$num*10000)/100,"%",sep = "");
+y1<-0;#主柱状图绘制百分比数据的y数值
+for(i in 1:split) {y1[i]=sum(data$num[-(1:i)])};
+text(x=1,y=y1+0.02,labels[1:split],cex=0.8);
+y2<-0;#复柱状图绘制百分比数据的y数值
+for(i in 1:split) {y2[i]=sum(data$num[(split+i+1):nrow(data)])};
+y2<-c(y2,0);
+y2<-y2*(max.bar2/sum(data$num[-(1:split)]));
+text(x=2,y=y2+0.02,labels[-(1:split)],cex=0.8);
+
+
+
+#绘制图例和图标
+legend("topright",legend = data$id,pch=15,col = c(rev(col[1:split]),rev(col[-(1:split)])),ncol = 1,bty = "n");
+title(main = list("网站退货率高的原因",cex=2),sub=" 月份 :3-4  品类:帆布鞋")
+
+

@@ -1,0 +1,18 @@
+pv<-c(29123,279750,89994,15851,61741,119477,75301,65602,75924,37943,11952,34567,11894,42780,18511,9450,1011,1533);
+id<-c("我的个人中心","我的订单","退换货办理","海外订单","我的收藏","礼品卡","优惠券","账户余额",
+      "会员积分","收货地址","促销信息退订","个人资料","关联账户","账户安全","商品评论","商品提问","邀请方式",
+      "邀请记录查询");
+
+library(RColorBrewer)
+col<-c(brewer.pal(9,"YlOrRd")[1:9],brewer.pal(9,"Blues")[1:9])
+
+barplot(pv,col=col,horiz = TRUE,xlim = c(-30000,300000))
+title(main = list("个人中心各模块用户点击率",cex=2),sub = "时间 :2012.9.1-2012.9.30",ylab="个人中心各模块");
+text(y=seq(from=0.7,length.out=18,by=1.2),x=-15000,labels=id)
+legend("topright",legend=rev(id),pch=15,col=rev(col),ncol=2)
+
+text(labels= paste(round(10000*pv/sum(pv))/100,"%",sep = ""),cex=0.7,
+     y=seq(from=0.7,length.out=18,by=1.2),
+     x=pv+10000)
+
+

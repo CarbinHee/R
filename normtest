@@ -1,0 +1,19 @@
+norm.test<-function(input,data,alpha=0.05,pic=TRUE) {
+  if(pic==TRUE){#画图形
+    dev.new()
+    par(mfrow=c(2,1))
+    qqnorm(input.data,main="qq图")
+    qqline(input.data)
+    hist(input.data,freq = F,main="直方图和密度估计曲线")
+    lines(density(input.data),col="blue")#密度估计曲线
+    x<-c(round(min(input.data)):round(max(input.data)))
+    lines(x,dnorm(x,mean(input.data),sd(input.data)),col="red")#正态分布曲线
+  }
+  sol<-shapiro.test(input.data)
+  if(sol$p.value>alpha){
+    print(paste("success:服从正态分布,p.value=",sol$p.value,">",alpha))
+  }else{
+    print(paste("error:不服从正态分布,p.value=",sol$p.value,"<=",alpha))
+  }
+  sol
+}

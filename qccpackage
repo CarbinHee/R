@@ -1,5 +1,51 @@
 library(qcc);
 view<-c(10231,12874,11229,9870,11804,11652,13259,11891,12876,14562,12933,13548,15230,13815,15766);
 targit<-c(201,229,231,201,237,224,236,167,213,240,259,241,256,276,248);
-sol<-qcc(targit,sizes=view,type="p");
-summary(sol)
+#sol<-qcc(targit,sizes=view,type="p");
+#summary(sol)
+
+#一、根据公式计算CL以及2倍和3倍标准差下UCL、LCL的数值
+conver<-targit/view;
+conver.cl<-sum(targit)/sum(view);
+#range.3<-3*sqrt(conver.cl*(1-conver.cl)/view);
+#range.2<-2*sqrt(conver.cl*(1-conver.cl)/view);
+
+#make the lines become straight
+range.3<-3*sqrt(conver.cl*(1-conver.cl)/mean(view));
+range.2<-2*sqrt(conver.cl*(1-conver.cl)/mean(view));
+conver.ucl.3<-conver.cl+range.3  #3倍标准差的上限
+conver.lcl.3<-conver.cl-range.3  #3倍标准差的下限
+conver.ucl.2<-conver.cl+range.2  #3倍标准差的上限
+conver.lcl.2<-conver.cl-range.2  #3倍标准差的下限
+
+#二、绘制主体图形
+col<-c("black","green","red","orange");
+x.text<-paste("2.",c(1:15),sep = "");
+plot(conver,type = "b",xaxt="n",col=col[1],xlim=c(0,17),ylim=c(0.013,0.023),pch=19,
+     main = list("转化率p控制图",cex=2),xlab="时间",ylab="转换率");
+axis(1,at=1:15,labels=x.text,tick = FALSE);
+
+#绘制2倍和3倍标准差的上下线以及平均值
+#lines(seq(0.5,16,1),c(conver.ucl.3[1],conver.ucl.3),type="S",col=col[3]);
+#lines(seq(0.5,16,1),c(conver.lcl.3[1],conver.lcl.3),type="S",col=col[3]);
+#lines(seq(0.5,16,1),c(conver.ucl.2[1],conver.ucl.2),type="S",col=col[4]);
+#lines(seq(0.5,16,1),c(conver.lcl.2[1],conver.ucl.2),type="S",col=col[4]);
+abline(h=conver.ucl.3,col=col[3])
+abline(h=conver.lcl.3,col=col[3])
+abline(h=conver.ucl.2,col=col[4])
+abline(h=conver.lcl.2,col=col[4])
+abline(h=conver.cl,col=col[2])
+
+
+#把异常点标记颜色和文字
+warrings.3<-c(which((conver<conver.ucl.3)==FALSE),
+              which((conver>conver.lcl.3)==FALSE))   #处于3倍标准差上下限以外的样本点序列
+warrings.2<-c(which((conver<conver.ucl.2)==FALSE),
+              which((conver>conver.lcl.2)==FALSE))   #处于2倍标准差上下限以外的样本点序列
+points(warrings.2,conver[warrings.2],col=col[4],pch=19)
+points(warrings.3,conver[warrings.3],col=col[3],pch=19)
+text(warrings.3,conver[warrings.3],"异常点")
+
+
+
+

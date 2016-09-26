@@ -1,0 +1,26 @@
+library(qcc)
+price<-c(103.76,129.12,107.30,97.45,105.10,115.78,105.21,98.78,101.74,96.53,97.99,114.20,116.18,80.29,82.76)
+#sol<-qcc(price,type="xbar.one");
+
+sol.3<-qcc(price,type="xbar.one",plot = F);
+sol.2<-qcc(price,type="xbar.one",plot = F,nsigmas = 2);
+
+col=c("black","green","red","orange");
+x.text<-paste("3.",c(1:15),sep="");
+plot(price,type = "b",xaxt="n",col=col[1],xlim=c(0,17),
+     ylim=c(min(sol.3$limits[1],min(price))-10,max(sol.3$limits[2],max(price))+10),
+     pch=19,main=list("日客单价：单值-均值质量控制图",cex=1.5),xlab=" 时间",ylab=" 日客单价（元）");
+
+warrings.3<-sol.3$violations$beyond.limits;
+warrings.2<-sol.2$violations$beyond.limits;
+axis(1,at=1:15,labels=x.text,tick = FALSE);
+
+abline(h=sol.3$limits[2],col=col[3]);
+abline(h=sol.3$limits[1],col=col[3]);
+abline(h=sol.2$limits[2],col=col[4]);
+abline(h=sol.2$limits[1],col=col[4]);
+abline(h=sol.3$center,col=col[2]);
+
+points(warrings.2,price[warrings.2],col=col[4],pch=19);
+points(warrings.3,price[warrings.3],col=col[3],pch=19);
+text(warrings.3,price[warrings.3],"异常点");
